@@ -18,9 +18,17 @@ namespace Romulus
         public async Task InitializeAsync(DiscordSocketClient client)
         {
             _client = client;
+            client.UserJoined += WelcomeMessage;
             _service = new CommandService();
             await _service.AddModulesAsync(Assembly.GetEntryAssembly());
             _client.MessageReceived += HandleCommandAsync;
+        }
+
+        public async Task WelcomeMessage(SocketGuildUser user)
+        {
+            var channel = _client.GetChannel(511983395249848330) as SocketTextChannel;
+            await channel.SendMessageAsync($"Welcome {user.Mention} to {channel.Guild.Name}! " +
+                $"Please use the command `r.set` followed by your nation name for masking! Enjoy your stay :D");
         }
 
         private async Task HandleCommandAsync(SocketMessage arg)
