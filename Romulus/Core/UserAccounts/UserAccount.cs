@@ -24,5 +24,7 @@ namespace Romulus.Core.UserAccounts
         }
 
         public DateTime LastMessage { get; set; }
+
+        public String Nation { get; set; }
     }
 }
